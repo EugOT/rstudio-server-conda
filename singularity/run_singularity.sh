@@ -5,7 +5,7 @@
 # Main parameters for the script with default values
 PORT=${PORT:-8787}
 USER=$(whoami)
-PASSWORD=${PASSWORD:-notsafe}
+PASSWORD=${PASSWORD:-cheglok}
 TMPDIR=${TMPDIR:-tmp}
 CONTAINER="rstudio_latest.sif"  # path to singularity container (will be automatically downloaded)
 
