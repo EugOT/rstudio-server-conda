@@ -33,13 +33,16 @@ singularity exec \
 	--bind database.conf:/etc/rstudio/database.conf \
 	--bind rsession.conf:/etc/rstudio/rsession.conf \
 	--bind $RSTUDIO_TMP/local-share-rstudio:/home/rstudio/.local/share/rstudio \
-	--bind ${CONDA_PREFIX}:${CONDA_PREFIX} \
+	--bind ${CONDA_PREFIX_1}:${CONDA_PREFIX_1} \
 	--bind $HOME/.config/rstudio:/home/rstudio/.config/rstudio \
         `# add additional bind mount required for your use-case` \
 	--bind $HOME/data:/data \
+	--env CONDA_EXE=$CONDA_EXE \
 	--env CONDA_PREFIX=$CONDA_PREFIX \
+	--env CONDA_PREFIX_1=$CONDA_PREFIX_1 \
 	--env RSTUDIO_WHICH_R=$R_BIN \
 	--env RETICULATE_PYTHON=$PY_BIN \
+	--env RETICULATE_CONDA=$CONDA_EXE \
 	--env PASSWORD=$PASSWORD \
 	--env PORT=$PORT \
 	--env USER=$USER \

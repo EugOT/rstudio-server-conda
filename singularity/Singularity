@@ -8,8 +8,15 @@ From: rocker/rstudio
 %post
     echo "lock-type=linkbased" > /etc/rstudio/file-locks
     chmod 755 /init.sh
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
-    bash ~/miniconda.sh -b -p /opt/conda
-    apt update && apt install -y libzmq3-dev
-    Rscript -e "install.packages(c('devtools', 'Rmagic', 'BiocManager', 'Seurat'))"
+    wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh -O ~/mambaforge.sh
+    bash ~/mambaforge.sh -b -p /opt/mambaforge
+    apt update && apt install -y libzmq3-dev libcurl4-openssl-dev libssl-dev libxml2-dev libgmp-dev libglpk-dev
+    mamba install -c conda-forge -c bioconda simplegeneric natsort tqdm patsy joblib r-essentials r-seurat r-devtools r-rcolorbrewer leidenalg scvi-tools cellrank cellrank-krylov umap-learn harmonypy harmony-pytorch r-harmony r-biocmanager r-workflowr r-gam r-rgl pandas numpy scipy scikit-learn gsl h5py llvmlite numba networkx numexpr pytables seaborn statsmodels python-igraph r-rngtools bioconductor-rhdf5lib bioconductor-mast bioconductor-slingshot bioconductor-schex bioconductor-nebulosa  
+    pip3 install MulticoreTSNE anndata scanpy fa2 scgen gprofiler-official rpy2 anndata2ri scvelo scarches cookiecutter pre-commit squidpy muon mudata
+    Rscript -e "devtools::install_github('satijalab/seurat-wrappers')"
+    Rscript -e "devtools::install_github('greenelab/miQC', build_vignettes = TRUE)"
+    Rscript -e "devtools::install_github('cole-trapnell-lab/leidenbase')"
+    Rscript -e "devtools::install_github('cole-trapnell-lab/monocle3')"
+    Rscript -e "devtools::install_github('kharchenkolab/conos')"
+
 
