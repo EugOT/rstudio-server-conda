@@ -7,183 +7,132 @@ channels:
   - nvidia
   - r
 dependencies:
-  - python>=3.7, <3.11
-  - icu>=68.1, <70.2
-  - readline >=8.1,<9.0
   - cmake
   - cython
   - cytoolz
   - psutil
-  - alevin-fry
-  - r-base>4.1.0, <=4.1.3
-  - r-essentials
-  - r-irkernel
-  - r-matrix
-  - r-rinside
-  - r-rcpp
-  - r-rcppeigen
-  - r-rgl
-  - pandas
-  - pandas-plink
-  - numpy
-  - scipy
-  - scikit-learn
-  - jupyter
-  - jupyterlab-nvdashboard
-  - jupyter-server-proxy
-  - jupyter-rsession-proxy
-  - gsl
-  - tzlocal
-  - simplegeneric
-  - natsort
+  - unixodbc
   - h5py
-  - tqdm
-  - patsy
+  - pyarrow
   - llvmlite
-  - numba
-  - networkx
-  - joblib
-  - numexpr
-  - numcodecs
-  - pytables
-  - papermill
-  - scrapbook
-  - bookstore
-  - nteract_on_jupyter
-  - seaborn
-  - statsmodels
-  - python-igraph
-  - snakemake
-  - multicore-tsne
-  - louvain
-  - leidenalg
-  - fa2
-  - upsetplot
-  - hdbscan
-  - py-xgboost
   - xgboost
   - libxgboost
-  - rapids-xgboost
-  - cudatoolkit
-  - rapids
   - openmpi
   - mpi4py
   - petsc
   - petsc4py
   - slepc
   - slepc4py
-  - dask-sql
-  - celltypist
-  - pyroe
-  - bgen
-  - dropest
-  - r-seurat
-  - r-devtools
-  - r-rcolorbrewer
-  - r-rngtools
-  - scvi-tools
+  - numpy
+  - scipy
+  - numba
+  - numexpr
+  - numcodecs
+  - networkx
+  - python-igraph
+  - pytables
+  - pandas
+  - statsmodels
+  - fitter
+  - scikit-learn
+  - umap-learn
+  - hdbscan
+  - leidenalg
+  - fa2
+  - fit-sne
+  - pyfit-sne
+  - multicore-tsne
+  - seaborn
+  - upsetplot
+  - pygraphviz
+  - pydot
+  - joblib
+  - snakemake
   - cellrank
   - cellrank-krylov
-  - umap-learn
-  - fitter
-  - cellsnp-lite
-  - omnipath
-  - pysam
-  - seqan
-  - seqan-library
-  - seqan3
-  - hapbin
-  - snpeff
-  - gatk4
-  - plink2
-  - vartrix
+  - alevin-fry
+  - pyroe
+  - celltypist
   - pyranges
-  - fastq-screen
-  - harmonypy
-  - harmony-pytorch
-  - r-harmony
-  - r-biocmanager
-  - r-grain
-  - r-xgboost
+  - jupyter
+  - jupyter-server-proxy
+  - jupyter-rsession-proxy
+  - jupyterlab=3
+  - r-irkernel
+  - r-base>4.1.0, <=4.1.3
+  - r-devtools
+  - r-stringi
+  - r-stringr
+  - r-hdf5r
+  - r-xml
+  - r-xml2
+  - r-odbc
+  - r-rmariadb
+  - r-readr
+  - r-here
   - r-workflowr
+  - r-r.utils
+  - r-magrittr
+  - r-zeallot
+  - r-furrr
+  - r-rcolorbrewer
+  - r-grain
   - r-gam
+  - r-vgam
+  - r-lmesplines
+  - r-flexmix
+  - r-leiden
+  - r-biocmanager
+  - r-seurat
+  - r-seuratdisk
+  - r-monocle3
   - r-upsetr
   - r-ggupset
   - r-complexupset
-  - bioconductor-destiny
   - bioconductor-complexheatmap
-  - bioconductor-mast
-  - bioconductor-scone
-  - bioconductor-edger
-  - bioconductor-limma
-  - bioconductor-mofa2
-  - bioconductor-impulsede
-  - bioconductor-slingshot
-  - bioconductor-dorothea
-  - bioconductor-progeny
-  - bioconductor-omnipathr
-  - bioconductor-carnival
-  - bioconductor-decoupler>=2.0.0
   - bioconductor-schex
-  - bioconductor-scdd
-  - bioconductor-switchde
-  - bioconductor-cellity
-  - bioconductor-fishpond
-  - bioconductor-alevinqc
-  - bioconductor-eisar
-  - bioconductor-genefilter
-  - bioconductor-deseq2
-  - bioconductor-isee
-  - bioconductor-iseeu
-  - bioconductor-mfa
-  - bioconductor-bsgenome
   - bioconductor-nebulosa
-  - bioconductor-rhdf5lib
-  - zarr
+  - bioconductor-miqc
+  - bioconductor-mast
+  - bioconductor-limma
+  - bioconductor-glmgampoi
+  - bioconductor-scone
+  - bioconductor-scater
+  - bioconductor-mofa2
+  - bioconductor-decoupler>=2.0.0
+  - bioconductor-busparse
+  - bioconductor-rsamtools
+  - bioconductor-rbgl
+  - rust
+  - vartrix
+  - freebayes
+  - minimap2
+  - bustools
+  - kallisto
+  - salmon
   - pip
   - pip:
-      - pipx
-      - distro
-      - anndata
-      - hail
-      - gnomad
+      - radian
+      - cookiecutter
+      - pre-commit
+      - beni
+      - flit
+      - feather-format
+      - trimap
       - dabest
-      - gprofiler-official
-      - featexp
+      - hidef
       - truncated_normal
-      - pyscenic
-      - doubletdetection
-      - scrublet
-      - solo-sc
-      - scTDA
-      - anchor-bio
-      - scAAnet
-      - dynamo-release
-      - FastProject
-      - celloracle
-      - hotspotsc
-      - git+https://github.com/yoseflab/Compass.git
-      - git+https://github.com/czbiohub/cerebra.git
-      - git+https://bitbucket.org/hamimzafar/monovar.git
-      - git+https://bitbucket.org/jerry00/scvis-dev.git
-      - git+https://github.com/Teichlab/MultiMAP.git
-      - git+https://github.com/saezlab/pypath.git
-      - scanpy
+      - featexp
+      - decoupler
+      - rpy2
+      - anndata2ri
       - scgen
       - scvelo
       - scarches
-      - cookiecutter
-      - pre-commit
       - squidpy
-      - muon
-      - mudata
-      - mquad
-      - vireoSNP
-      - decoupler
-      - bgen-reader
-      - glimix-core
-      - rpy2
-      - anndata2ri
+      - bbknn
+      - harmonypy
+      - kb-python
       - ffq
       - gget
-      - kb-python
+      - gprofiler-official
