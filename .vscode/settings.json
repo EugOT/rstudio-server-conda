@@ -1,0 +1,6 @@
+{
+    "sync.quietSync": true,
+    "sync.autoUpload": true,
+    "sync.autoDownload": true,
+    "editor.wrappingStrategy": "advanced"
+}
