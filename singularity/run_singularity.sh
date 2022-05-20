@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # See also https://www.rocker-project.org/use/singularity/
 
@@ -33,10 +33,9 @@ singularity exec \
 	--bind database.conf:/etc/rstudio/database.conf \
 	--bind rsession.conf:/etc/rstudio/rsession.conf \
 	--bind $RSTUDIO_TMP/local-share-rstudio:/home/rstudio/.local/share/rstudio \
-	--bind ${CONDA_PREFIX_1}:${CONDA_PREFIX_1} \
+	--bind ${CONDA_PREFIX}:${CONDA_PREFIX} \
 	--bind $HOME/.config/rstudio:/home/rstudio/.config/rstudio \
-        `# add additional bind mount required for your use-case` \
-	--bind $HOME/data:/data \
+        --bind $HOME/data:/data \
 	--env CONDA_EXE=$CONDA_EXE \
 	--env CONDA_PREFIX=$CONDA_PREFIX \
 	--env CONDA_PREFIX_1=$CONDA_PREFIX_1 \
@@ -48,5 +47,3 @@ singularity exec \
 	--env USER=$USER \
 	rstudio_latest.sif \
 	/init.sh
-
-

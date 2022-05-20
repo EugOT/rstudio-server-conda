@@ -5,21 +5,68 @@ From: rocker/rstudio
 %files
     init.sh /init.sh
 
+%environment
+    export CONDA_DIR=/opt/mambaforge
+
 %post
     echo "lock-type=linkbased" > /etc/rstudio/file-locks
     chmod 755 /init.sh
-    wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh -O ~/mambaforge.sh
-    bash ~/mambaforge.sh -b -p /opt/mambaforge
-    apt update && apt install -y libhdf5-dev libfreetype6-dev libtool m4 autoconf automake patch bison flex libpng-dev libopenblas-dev  tcl-dev tk-dev libxml2-dev zlib1g-dev libffi-dev cmake libgomp1 libxml2 procps libzmq3-dev libcurl4-openssl-dev libssl-dev libgmp-dev libglpk-dev
-    mamba install -c conda-forge -c bioconda simplegeneric natsort tqdm patsy joblib openmpi mpi4py petsc petsc4py slepc slepc4py celltypist r-essentials r-seurat r-devtools r-rcolorbrewer snakemake leidenalg scvi-tools cellrank cellrank-krylov umap-learn harmonypy harmony-pytorch r-harmony r-biocmanager r-workflowr r-gam r-rgl pandas numpy scipy scikit-learn gsl h5py llvmlite numba networkx numexpr pytables seaborn statsmodels python-igraph r-rngtools bioconductor-rhdf5lib bioconductor-mast bioconductor-slingshot bioconductor-schex bioconductor-nebulosa  
-    pip3 install MulticoreTSNE anndata scanpy fa2 scgen gprofiler-official rpy2 anndata2ri ffq gget kb-python scvelo scarches cookiecutter pre-commit squidpy muon mudata
-    Rscript -e "devtools::install_github('satijalab/seurat-wrappers')"
-    Rscript -e "devtools::install_github('single-cell-genetics/cardelino', build_vignettes = FALSE)"
-    Rscript -e "devtools::install_github('greenelab/miQC', build_vignettes = TRUE)"
-    Rscript -e "devtools::install_github('cole-trapnell-lab/leidenbase')"
-    Rscript -e "devtools::install_github('cole-trapnell-lab/monocle3')"
-    Rscript -e "devtools::install_github('kharchenkolab/conos')"
-    # clean up
-    apt-get clean &&
-    rm -rf /var/lib/apt/lists/*
-
+    apt-get update > /dev/null && \
+    apt-get install -yq --no-install-recommends \
+        autoconf automake bison build-essential cmake fakeroot flex htop \
+        libc6-dev libcairo2-dev libffi-dev libfreetype6-dev libgomp1 \
+        liblzma-dev libpango1.0-dev libpng-dev libtool lsb-release lsof \
+        m4 nano patch pkg-config procps psmisc rsync tcl-dev tk-dev tzdata \
+        uuid-dev vim wget zlib1g-dev libegl1-mesa libhdf5-dev \
+        libopenblas-dev libzmq3-dev parallel curl git \
+        libcurl4-openssl-dev libssl-dev libxml2 libxml2-dev \
+        libseccomp-dev squashfs-tools cryptsetup \
+        software-properties-common libgmp-dev libglpk-dev > /dev/null && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    wget --no-hsts --quiet https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh -O /tmp/mambaforge.sh && \
+    export CONDA_DIR=/opt/mambaforge
+    export PATH=${CONDA_DIR}/bin:${PATH}
+    /bin/bash /tmp/mambaforge.sh -b -p ${CONDA_DIR} && \
+    rm /tmp/mambaforge.sh && \
+    . ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate base && \
+    conda clean -tipsy && \
+    find ${CONDA_DIR} -follow -type f -name '*.a' -delete && \
+    find ${CONDA_DIR} -follow -type f -name '*.pyc' -delete && \
+    conda clean -afy && \
+    echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate base" >> /etc/skel/.bashrc && \
+    echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate base" >> ~/.bashrc && \
+    mamba install -c conda-forge -c bioconda \
+        cmake cython cytoolz psutil h5py pyarrow llvmlite numpy scipy \
+        numba numexpr numcodecs networkx python-igraph pytables pandas \
+        statsmodels scikit-learn umap-learn hdbscan leidenalg fa2 \
+        fit-sne pyfit-sne multicore-tsne seaborn upsetplot pygraphviz pydot \
+        joblib snakemake cellrank cellrank-krylov \
+        r-devtools r-stringr r-hdf5r r-arrow r-xml r-xml2 r-readr \
+        r-here r-renv r-workflowr r-kableextra r-r.utils \
+        r-magrittr r-zeallot r-furrr r-rcolorbrewer \
+        r-gam r-lmesplines r-flexmix r-upsetr \
+        r-biocmanager r-seurat==4.1.1 bioconductor-complexheatmap \
+        bioconductor-schex bioconductor-nebulosa bioconductor-miqc \
+        bioconductor-mast bioconductor-limma bioconductor-glmgampoi \
+        bioconductor-scater pip && \
+    ${CONDA_DIR}/bin/pip3 install radian beni flit trimap dabest hidef \
+    truncated_normal decoupler rpy2 anndata2ri scgen scvelo squidpy \
+    bbknn harmonypy kb-python ffq gget gprofiler-official && \
+    unset R_HOME && \
+    Rscript -e "devtools::install_github('ACCLAB/dabestr', upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github('saezlab/OmnipathR', upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github('sqjin/CellChat', upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github('msraredon/Connectome', ref = 'master', upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github('Coolgenome/iTALK', build_vignettes = TRUE, upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github(repo = 'saezlab/SingleCellSignalR_v1', subdir = 'SingleCellSignalR', upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github('saezlab/liana', upgrade = 'never', quiet = TRUE)" && \
+    cd `Rscript -e "cat(system.file(package = 'liana'))"` && \
+    git clone https://github.com/saezlab/NATMI && \
+    Rscript -e "devtools::install_github('satijalab/seurat-wrappers', upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github('single-cell-genetics/cardelino', build_vignettes = FALSE, upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github('greenelab/miQC', build_vignettes = FALSE, upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github('kharchenkolab/conos', upgrade = 'never', quiet = TRUE)" && \
+    Rscript -e "devtools::install_github('morris-lab/Capybara')" && \
+    Rscript -e "devtools::install_github('linxihui/NNLM')" && \
+    Rscript -e "devtools::install_github('yanwu2014/swne')"
