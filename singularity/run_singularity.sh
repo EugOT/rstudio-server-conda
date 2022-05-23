@@ -36,9 +36,9 @@ singularity exec \
 	--bind ${CONDA_PREFIX}:${CONDA_PREFIX} \
 	--bind $HOME/.config/rstudio:/home/rstudio/.config/rstudio \
         --bind $HOME/data:/data \
+	--bind $HOME/src:/src \
 	--env CONDA_EXE=$CONDA_EXE \
 	--env CONDA_PREFIX=$CONDA_PREFIX \
-	--env CONDA_PREFIX_1=$CONDA_PREFIX_1 \
 	--env RSTUDIO_WHICH_R=$R_BIN \
 	--env RETICULATE_PYTHON=$PY_BIN \
 	--env RETICULATE_CONDA=$CONDA_EXE \
